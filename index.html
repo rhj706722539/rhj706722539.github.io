@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>dog</title>
-<!-- <link
+<title>生日快乐</title>
+<link
   href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Arapey|Archivo+Black|Elsie+Swash+Caps|Playfair+Display|Anton|Rubik|Teko:600|Sacramento|Abril+Fatface|Cormorant+Garamond|Neucha|Unica+One|Old+Standard+TT"
-  rel="stylesheet"> -->
+  rel="stylesheet">
 <style>
 @-webkit-keyframes head {
   0% {
@@ -1999,20 +1999,34 @@ html, body {
   box-sizing: border-box;
   position: relative;
 }
-.boy-test {
+/* .boy-test {
   margin-bottom: 30%;
   font-family: 'Neucha', serif;
+  text-shadow: 1px 1px 10px #EED1D6;
   font-size: 9vw;
   font-weight: 400;
   color: #ffffff;
+} */
+.boy-test {
+  color: #EED1D6;
+  text-shadow: 1px 1px 10px #EED1D6;
+  background-image: -webkit-linear-gradient(left, #DC6290, #F09FA6 25%, #EED1D6 50%, #F09FA6 75%, #DC6290 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-background-size: 200% 100%;
+  -webkit-animation: masked-animation 4s infinite linear;
+  font-family: 'Neucha', serif;
+  letter-spacing:2px;
+  font-size: 15vw;
+  font-weight: 400;
+  margin-bottom: 30%;
+  opacity: 0;
 }
 </style>
 </head>
 
 <body>
-<div class="boy-test">
-  Happy birthday
-</div>
+<div class="boy-test" id="fade">Happy birthday</div>
 <div class="husky">
   <div class="mane">
     <div class="coat"></div>
@@ -2058,4 +2072,43 @@ html, body {
 
 
 </body>
+<script>
+var fadeEffect = function () {
+  return {
+    init: function (id, flag, target) {
+      this.elem = document.getElementById(id);
+      clearInterval(this.elem.si);
+      this.target = target ? target : flag ? 100 : 0;
+      this.flag = flag || -1;
+      this.alpha = this.elem.style.opacity ? parseFloat(this.elem.style.opacity) * 100 : 0;
+      this.si = setInterval(function () { fadeEffect.tween() }, 20);
+    },
+    tween: function () {
+      if (this.alpha == this.target) {
+        clearInterval(this.si);
+      }
+      else {
+        var value = Math.round(this.alpha + ((this.target - this.alpha) * .05)) + (1 * this.flag);
+        this.elem.style.opacity = value / 100;
+        this.elem.style.filter = 'alpha(opacity=' + value + ')';
+        this.alpha = value
+      }
+    }
+  }
+}();
+window.onload = function () {
+  var flag = 0;
+  setInterval(() => {
+    if(flag == 0){
+      fadeEffect.init('fade', 1);
+      flag = 1;
+      console.log(flag);
+    }else if(flag == 1){
+      fadeEffect.init('fade', 0);
+      flag = 0;
+      console.log(flag);
+    }
+  }, 4100);
+}
+</script>
 </html>
