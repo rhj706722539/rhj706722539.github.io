@@ -2097,18 +2097,19 @@ var fadeEffect = function () {
   }
 }();
 window.onload = function () {
-  var flag = 0;
-  setInterval(() => {
-    if(flag == 0){
+  show();
+  function show() {
+    setTimeout(() => {
       fadeEffect.init('fade', 1);
-      flag = 1;
-      console.log(flag);
-    }else if(flag == 1){
+      hide();
+    }, 4100);
+  }
+  function hide() {
+    setTimeout(() => {
       fadeEffect.init('fade', 0);
-      flag = 0;
-      console.log(flag);
-    }
-  }, 4100);
+      show();
+    }, 7700);
+  }
 }
 </script>
 </html>
